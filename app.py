@@ -83,6 +83,9 @@ def index():
         Producto.nombre, func.sum(VentaItem.cantidad).label('total_vendido')
     ).join(VentaItem, Producto.id == VentaItem.producto_id).group_by(Producto.nombre).order_by(func.sum(VentaItem.cantidad).desc()).limit(5).all()
 
+    # ===== NUEVO: 5. Datos para el gráfico de ventas semanales =====
+    ingresos_semanales = obtener_ingresos_ultimos_7_dias()
+
     return render_template('index.html',
                            productos=productos,
                            ventas=ventas,
@@ -90,7 +93,42 @@ def index():
                            ingresos_totales=ingresos_totales,
                            ventas_hoy=ventas_hoy,
                            ventas_semanales=ventas_semanales,
-                           productos_mas_vendidos=productos_mas_vendidos)
+                           productos_mas_vendidos=productos_mas_vendidos,
+                           ingresos_semanales=ingresos_semanales)  # <-- NUEVO
+
+
+# ===== NUEVA FUNCIÓN: Obtener ingresos de los últimos 7 días =====
+def obtener_ingresos_ultimos_7_dias():
+    """
+    Retorna un diccionario con los ingresos de los últimos 7 días.
+    Formato: {'labels': ['Lunes', 'Martes', ...], 'datos': [1250.50, 1980.00, ...]}
+    """
+    hoy = date.today()
+    dias_semana = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo']
+    
+    labels = []
+    datos = []
+    
+    # Iterar sobre los últimos 7 días
+    for i in range(6, -1, -1):  # De 6 a 0 (últimos 7 días, empezando desde hace 6 días hasta hoy)
+        fecha = hoy - timedelta(days=i)
+        
+        # Obtener el nombre del día de la semana
+        dia_nombre = dias_semana[fecha.weekday()]
+        labels.append(f"{dia_nombre} {fecha.strftime('%d/%m')}")
+        
+        # Calcular ingresos de ese día
+        ingresos_dia = db.session.query(func.sum(Venta.total)).filter(
+            func.date(Venta.fecha) == fecha
+        ).scalar()
+        
+        # Si no hay ventas ese día, poner 0
+        datos.append(float(ingresos_dia) if ingresos_dia else 0.0)
+    
+    return {
+        'labels': labels,
+        'datos': datos
+    }
 
 @app.route("/producto/agregar", methods=["POST"])
 def agregar_producto():
