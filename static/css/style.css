@@ -1,0 +1,834 @@
+:root {
+    --coca-cola-red: #E60023;
+    --coca-cola-dark-red: #B2001B;
+    --coca-cola-dark: #333333;
+    --coca-cola-light-gray: #F5F5F5;
+    --coca-cola-white: #FFFFFF;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: var(--coca-cola-light-gray);
+    color: var(--coca-cola-dark);
+}
+
+
+.container {
+    max-width: 1200px;
+}
+
+.card {
+    border: none;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    border-radius: 10px;
+    transition: transform 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+h1, h2, h3, h4 {
+    color: var(--coca-cola-dark);
+    font-weight: 700;
+}
+
+.btn-primary {
+    background-color: var(--coca-cola-red);
+    border-color: var(--coca-cola-red);
+    font-weight: 600;
+    transition: all 0.2s ease-in-out;
+}
+
+.btn-primary:hover {
+    background-color: var(--coca-cola-dark-red);
+    border-color: var(--coca-cola-dark-red);
+}
+
+.btn-success {
+    background-color: #008744;
+    border-color: #008744;
+    font-weight: 600;
+    transition: all 0.2s ease-in-out;
+}
+
+.btn-success:hover {
+    background-color: #006D37;
+    border-color: #006D37;
+}
+
+.btn-danger {
+    background-color: #DC3545;
+    border-color: #DC3545;
+    font-weight: 600;
+    transition: all 0.2s ease-in-out;
+}
+
+.btn-danger:hover {
+    background-color: #C02534;
+    border-color: #C02534;
+}
+
+.btn-warning {
+    color: white;
+}
+.btn-warning:hover {
+    color: white;
+}
+
+.table {
+    background-color: white;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.table thead th {
+    background-color: var(--coca-cola-red);
+    color: white;
+    border-color: var(--coca-cola-red);
+}
+
+.table tbody tr:hover {
+    background-color: var(--coca-cola-light-gray);
+    cursor: pointer;
+}
+
+.form-control {
+    border-radius: 5px;
+}
+
+.alert-success {
+    background-color: #d4edda;
+    color: #155724;
+    border-color: #c3e6cb;
+}
+
+.horizontal-divider {
+    border: 0;
+    height: 2px;
+    background-color: var(--coca-cola-dark);
+    opacity: 0.1;
+    margin: 3rem 0;
+}
+
+.badge-stock {
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+/* ESTILOS DE LA FACTURA */
+.invoice-container {
+    font-family: 'Montserrat', sans-serif;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 40px;
+    background-color: var(--coca-cola-white);
+    border: 1px solid #ddd;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+.invoice-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.invoice-header .logo {
+    max-height: 80px;
+}
+
+.invoice-header h1 {
+    color: var(--coca-cola-red);
+    font-size: 2.5rem;
+    margin: 0;
+}
+
+.invoice-company-info, .invoice-client-info {
+    line-height: 1.6;
+    font-size: 0.9rem;
+}
+
+.invoice-details {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+    border-top: 2px solid var(--coca-cola-light-gray);
+    border-bottom: 2px solid var(--coca-cola-light-gray);
+    padding: 15px 0;
+}
+
+.invoice-details h4 {
+    font-weight: 600;
+    color: var(--coca-cola-dark);
+    margin-bottom: 5px;
+}
+
+.invoice-details p {
+    margin: 0;
+}
+
+.invoice-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 30px;
+}
+
+.invoice-table thead th {
+    text-align: left;
+    padding: 12px 10px;
+    background-color: var(--coca-cola-red);
+    color: var(--coca-cola-white);
+    font-weight: 600;
+}
+
+.invoice-table tbody td {
+    text-align: left;
+    padding: 10px;
+    border-bottom: 1px solid var(--coca-cola-light-gray);
+}
+
+.invoice-summary {
+    display: flex;
+    justify-content: flex-end;
+    text-align: right;
+}
+
+.invoice-summary-table {
+    width: 300px;
+}
+
+.invoice-summary-table td {
+    padding: 8px 0;
+    font-weight: 600;
+}
+
+.invoice-summary-table .total-label {
+    font-size: 1.2rem;
+    color: var(--coca-cola-red);
+}
+
+.invoice-summary-table .total-amount {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--coca-cola-red);
+}
+
+.invoice-footer {
+    text-align: center;
+    font-size: 0.8rem;
+    color: #888;
+    margin-top: 50px;
+}
+
+.print-button-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* Indicador sutil del link activo en nav */
+#mainNav .nav-link.active {
+    text-decoration: underline;
+    font-weight: 600;
+}
+
+.menu-card {
+    background: white;
+    padding: 35px 20px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
+    text-decoration: none;
+    color: #333;
+    transition: 0.25s;
+    display: block;
+}
+
+.menu-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.20);
+}
+
+.menu-icon {
+    width: 150px;      
+    height: 150px;       
+    margin-bottom: 20px;
+    display: flex;       
+    align-items: center;
+    justify-content: center;
+    margin-left: auto;  
+    margin-right: auto;
+}
+
+/* --- MEJORAS DEL NAVBAR --- */
+
+.custom-navbar {
+    background-color: var(--coca-cola-dark); /* Fondo oscuro */
+    padding: 0.8rem 0; /* Más aire arriba y abajo */
+    border-bottom: 4px solid var(--coca-cola-red); /* Borde rojo marca */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+/* Estilo del Logo en el Nav */
+.custom-navbar .logo {
+    max-height: 45px; /* Tamaño controlado */
+    filter: brightness(0) invert(1); /* Logo blanco */
+    transition: transform 0.3s;
+}
+.custom-navbar .navbar-brand:hover .logo {
+    transform: scale(1.05);
+}
+
+/* Enlaces del Menú (Panel, Ventas...) */
+.custom-navbar .nav-link {
+    color: rgba(255, 255, 255, 0.7) !important; /* Blanco suave */
+    font-weight: 500;
+    font-size: 0.95rem;
+    padding: 0.5rem 1rem !important;
+    border-radius: 50px; /* Bordes redondeados al pasar el mouse */
+    transition: all 0.3s ease;
+    margin: 0 5px;
+}
+
+/* Efecto Hover (al pasar el mouse) y Activo */
+.custom-navbar .nav-link:hover,
+.custom-navbar .nav-link.active {
+    color: white !important;
+    background-color: rgba(255, 255, 255, 0.1);
+    text-decoration: none; /* Quitar subrayado */
+    transform: translateY(-1px);
+}
+
+/* Botón Cerrar Sesión específico */
+.btn-danger {
+    background-color: var(--coca-cola-red);
+    border: none;
+    box-shadow: 0 2px 5px rgba(230, 0, 35, 0.4);
+}
+.btn-danger:hover {
+    background-color: #b2001b; /* Rojo más oscuro */
+    box-shadow: 0 4px 8px rgba(230, 0, 35, 0.6);
+}
+
+/* --- ESTILOS ESPECÍFICOS PARA HOME/MENÚ --- */
+
+/* Asegura que el texto principal de la tarjeta sea blanco */
+.menu-card h4, .menu-card p {
+    color: var(--coca-cola-white) !important; 
+}
+
+/* Hace que el texto descriptivo sea un gris claro (text-secondary) */
+.menu-card .text-secondary {
+    color: rgba(255, 255, 255, 0.7) !important; /* Gris claro para las descripciones */
+}
+
+/* Estilo para las tarjetas en la página de Home */
+.menu-card {
+    /* ... (mantener estilos existentes de radio, sombra, etc.) ... */
+    transition: transform 0.3s, box-shadow 0.3s;
+    border: 1px solid rgba(255, 255, 255, 0.1); /* Borde sutil para destacar */
+}
+
+.menu-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(255, 255, 255, 0.08); /* Sombra clara al hacer hover */
+}
+/* --- MEJORAS DE ALINEACIÓN y ESTILO DE BOTONES --- */
+
+/* 1. Fuerza la alineación vertical en el UL para toda la navegación */
+.custom-navbar .nav {
+    display: flex;
+    align-items: center; 
+    /* Elimina el margen por defecto de Bootstrap que puede causar desalineación */
+    margin-bottom: 0 !important; 
+}
+
+/* 2. Estilo especial para el link "Menú Principal" */
+.custom-navbar .aligned-nav-link {
+    /* Mantiene el espaciado de un nav-link normal */
+    padding: 0.5rem 1rem !important; 
+    font-weight: 700 !important; /* Más negrita para destacarlo */
+    
+    /* Le damos un fondo sutil al pasar el mouse para que parezca un botón sutil */
+    transition: background-color 0.3s ease;
+    border-radius: 5px;
+    margin-right: 5px; /* Pequeño margen para separarlo de Panel */
+}
+
+/* --- WIDGET TOP 5 - ESTILO PREMIUM DARK MODE Y GLASSMORHISM (FINAL) --- */
+
+/* Variables de Color (Asegúrate de que estas estén al inicio de tu CSS) */
+:root {
+    --coca-cola-red: #E60023;
+    --coca-cola-dark-red: #B2001B;
+    /* Nuevo acento rojo para el widget */
+    --top5-red-accent: #D32F2F; 
+    /* Efecto de brillo sutil para el neón */
+    --top5-neon-glow: 0 0 10px rgba(211, 47, 47, 0.6);
+}
+
+/* 1. ESTILO BASE DEL WIDGET (GLASSMORHISM) */
+.top5-card {
+    /* Fondo semi-transparente para glassmorphism */
+    background: rgba(40, 40, 40, 0.7); 
+    backdrop-filter: blur(8px); /* Efecto Glassmorphism */
+    border: 1px solid rgba(255, 255, 255, 0.1); /* Borde sutil */
+    border-radius: 15px;
+    /* Sombra oscura y brillo de acento neón */
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5), var(--top5-neon-glow); 
+    color: var(--coca-cola-white);
+    overflow: hidden; 
+}
+
+/* 2. ENCABEZADO Y TÍTULO */
+.top5-header {
+    background: rgba(25, 25, 25, 0.8);
+    /* Línea de separación debajo del título en rojo */
+    border-bottom: 3px solid var(--top5-red-accent);
+    padding: 1.25rem 1.5rem 1rem 1.5rem;
+    display: flex;
+    align-items: center;
+}
+
+.top5-header h2 {
+    font-size: 1.25rem;
+    letter-spacing: 1.5px; /* Más espaciado para un look corporativo */
+    margin-left: 15px;
+    font-weight: 800 !important; /* Más negrita */
+    color: var(--coca-cola-white) !important;
+    text-transform: uppercase;
+}
+
+/* 3. LISTA DE PRODUCTOS (FILAS) */
+.top5-item {
+    display: flex;
+    align-items: center;
+    padding: 1rem 0;
+    /* Línea sutil de separación entre productos */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08); 
+    transition: background-color 0.2s;
+}
+
+.top5-item:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.top5-item:hover {
+    background-color: rgba(255, 255, 255, 0.05); /* Sutil hover para interacción */
+    border-radius: 8px;
+}
+
+/* 4. RANKING Y SILUETA */
+.rank-container {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0; 
+    margin-right: 20px;
+}
+
+.rank-number {
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: var(--top5-red-accent);
+    /* Efecto neón en el número */
+    text-shadow: 0 0 5px rgba(211, 47, 47, 0.8); 
+    min-width: 45px;
+    text-align: center;
+    line-height: 1; /* Para alineación vertical perfecta */
+}
+
+.bottle-icon {
+    width: 35px; 
+    height: auto;
+    filter: invert(1) grayscale(100%) brightness(0.8); 
+    margin-left: 10px;
+}
+
+.product-info {
+    line-height: 1.3;
+}
+.product-name {
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--coca-cola-white);
+}
+
+.product-subtext {
+    color: rgba(255, 255, 255, 0.65) !important;
+    font-size: 0.8rem;
+    font-style: italic;
+}
+
+.sales-quantity {
+    flex-shrink: 0;
+    font-size: 1.05rem;
+    line-height: 1.2;
+}
+
+.sales-quantity small {
+    color: rgba(255, 255, 255, 0.5) !important;
+    font-size: 0.75rem;
+}
+
+.top5-progress-wrapper {
+    height: 8px; /* Altura de la barra */
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 4px;
+    margin-top: 5px;
+    margin-left: 70px; /* Alineación con el nombre del producto (ajustar si es necesario) */
+    margin-bottom: 1rem;
+    overflow: hidden;
+}
+
+.top5-progress-bar {
+    height: 100%;
+    background-color: var(--top5-red-accent);
+    border-radius: 4px;
+    transition: width 1.2s ease-out; /* Animación de la barra */
+    /* Brillo neón */
+    box-shadow: 0 0 5px var(--top5-red-accent), inset 0 0 2px rgba(255, 255, 255, 0.5);
+}
+
+
+.top5-logo {
+    width: 70px; 
+    height: 70px;
+    
+    object-fit: contain; 
+    
+    filter: drop-shadow(0 0 5px var(--top5-red-accent)); 
+    
+    margin-right: 15px; 
+}
+
+/* --- ESTILOS PARA LAS TARJETAS DE MÉTRICAS DARK MODE --- */
+
+.metric-card-dark {
+    /* Fondo muy oscuro, similar al resto del dashboard */
+    background-color: #1e1e1e !important; 
+    color: var(--coca-cola-white) !important;
+    
+    /* Sombra más marcada para que resalten */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4); 
+    
+    /* Asegura que el texto blanco sea legible */
+    border: 1px solid rgba(255, 255, 255, 0.1); 
+    
+    /* Efecto hover suave */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.metric-card-dark:hover {
+    transform: translateY(-8px); /* Más desplazamiento al pasar el ratón */
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.6);
+}
+
+/* El texto de los títulos dentro de estas tarjetas debe usar los colores de acento */
+.metric-card-dark .card-title {
+    color: var(--coca-cola-red); /* O el color de Bootstrap aplicado (text-primary, etc.) */
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* --- ESTILO PARA TARJETAS DE GRÁFICOS EN DARK MODE --- */
+.dark-graph-card {
+    background-color: #1e1e1e !important; /* Fuerza el color oscuro */
+    color: #ffffff !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 20px !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5) !important;
+    padding: 1.5rem !important;
+}
+
+/* Aseguramos que el título H3 se vea bien y tenga un acento */
+.dark-graph-card h3 {
+    color: #ffffff !important;
+    font-weight: 700;
+    font-size: 1.25rem;
+    text-align: center;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* 3. Estilo de hover para "Menú Principal" */
+.custom-navbar .aligned-nav-link:hover {
+    background-color: rgba(255, 255, 255, 0.1); /* Fondo gris muy sutil al pasar el mouse */
+}
+
+/* 4. Estilo para el botón Cerrar Sesión (Ahora es btn-primary) */
+.btn-primary {
+    /* Asegúrate de que el botón sea un poco más alto para alinearse mejor */
+    padding-top: 0.4rem !important;
+    padding-bottom: 0.4rem !important;
+    background-color: var(--coca-cola-red);
+    border-color: var(--coca-cola-red);
+    font-weight: 600;
+}
+
+.btn-primary:hover {
+    background-color: var(--coca-cola-dark-red);
+    border-color: var(--coca-cola-dark-red);
+}
+
+/* --- ESTILOS MODERNOS PARA VENTAS (DARK THEME) --- */
+
+/* Tarjeta Principal */
+.modern-card {
+    background-color: #1e1e1e; /* Fondo oscuro elegante */
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+}
+
+.section-title {
+    color: #ffffff;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-bottom: 2px solid #E60023; /* Línea roja Coca-Cola */
+    display: inline-block;
+    padding-bottom: 10px;
+}
+
+/* Inputs Modernos (Floating Labels) */
+.form-floating > .modern-input {
+    background-color: #2c2c2c;
+    border: 1px solid #444;
+    color: #fff;
+    border-radius: 10px;
+}
+
+.form-floating > .modern-input:focus {
+    background-color: #333;
+    color: #fff;
+    border-color: #E60023; /* Borde rojo al escribir */
+    box-shadow: 0 0 0 0.25rem rgba(230, 0, 35, 0.25);
+}
+
+.form-floating > label {
+    color: #aaa; /* Color del texto del label */
+}
+
+.form-floating > .form-control:focus ~ label,
+.form-floating > .form-control:not(:placeholder-shown) ~ label {
+    color: #E60023; /* El label se pone rojo al subir */
+    opacity: 1;
+}
+
+/* Inputs Autocomplete (Select2) */
+/* Esto arregla el Select2 para que se vea bien en modo oscuro */
+.select2-container--bootstrap-5 .select2-selection {
+    background-color: #2c2c2c !important; /* Fondo oscuro */
+    border: 1px solid #444 !important;    /* Borde sutil */
+    color: #ffffff !important;            /* Texto blanco */
+    height: 50px !important;              /* Altura fija para alinearse al botón */
+    display: flex !important;
+    align-items: center !important;       /* Centrar texto verticalmente */
+    border-radius: 10px 0 0 10px !important; /* Redondear solo la izquierda */
+}
+.select2-container--bootstrap-5 .select2-selection--single .select2-selection__rendered {
+    color: #ffffff !important;
+    padding-left: 15px !important;
+    font-size: 1rem;
+}
+
+.select2-container--bootstrap-5 .select2-selection--single .select2-selection__placeholder {
+    color: #aaaaaa !important;
+}
+
+/* Botones */
+.btn-add-modern {
+    background-color: #E60023;
+    border: none;
+    padding-left: 20px;
+    padding-right: 20px;
+    font-weight: 600;
+}
+
+.modern-submit-btn {
+    background: linear-gradient(45deg, #198754, #20c997); /* Degradado verde */
+    border: none;
+    font-size: 1.1rem;
+    font-weight: bold;
+    padding: 15px;
+    border-radius: 10px;
+    transition: transform 0.2s;
+}
+
+.modern-submit-btn:hover {
+    transform: scale(1.02); /* Efecto de crecimiento suave */
+    box-shadow: 0 5px 15px rgba(32, 201, 151, 0.4);
+}
+
+/* Estilo para los items que se agregan a la lista */
+.list-group-item {
+    background-color: #2c2c2c !important;
+    color: white !important;
+    border-color: #444 !important;
+}
+
+.input-group .select2-container--bootstrap-5 {
+    flex: 1 1 auto; /* Hace que ocupe todo el espacio disponible */
+    width: auto !important;
+    position: relative;
+    z-index: 0;
+}
+
+.select2-dropdown {
+    background-color: #2c2c2c !important;
+    border: 1px solid #444 !important;
+    color: #ffffff !important;
+}
+
+/* 6. Las opciones individuales */
+.select2-results__option {
+    color: #ffffff !important;
+}
+
+/* Opción resaltada al pasar el mouse */
+.select2-container--bootstrap-5 .select2-results__option--highlighted[aria-selected] {
+    background-color: #E60023 !important; /* Rojo al seleccionar */
+    color: #ffffff !important;
+}
+
+/* 7. Ajuste del botón "Agregar" para que pegue perfecto */
+#btn-agregar-item {
+    height: 50px; /* Misma altura que el select */
+    border-radius: 0 10px 10px 0; /* Redondear solo la derecha */
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+/* --- ESTILOS PARA LA TABLA DATATABLES (DARK MODE) --- */
+
+/* Fondo y texto general de la tabla */
+.custom-dark-table {
+    background-color: transparent !important;
+    color: #e0e0e0;
+}
+
+.custom-dark-table thead th {
+    background-color: #2c2c2c; /* Encabezado un poco más claro */
+    color: #E60023; /* Rojo Coca-Cola */
+    border-bottom: 2px solid #E60023;
+    border-top: none;
+}
+
+.custom-dark-table tbody tr {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.custom-dark-table tbody tr:hover {
+    background-color: rgba(230, 0, 35, 0.1) !important; /* Rojo muy suave al pasar el mouse */
+}
+
+/* Modificamos los controles de DataTables (Buscador, Paginación, Info) */
+.dataTables_wrapper .dataTables_length, 
+.dataTables_wrapper .dataTables_filter, 
+.dataTables_wrapper .dataTables_info, 
+.dataTables_wrapper .dataTables_processing, 
+.dataTables_wrapper .dataTables_paginate {
+    color: #aaa !important; /* Texto gris claro para "Mostrar X registros" */
+    margin-bottom: 1rem;
+}
+
+/* Inputs del buscador y selector de cantidad */
+.dataTables_wrapper .dataTables_filter input,
+.dataTables_wrapper .dataTables_length select {
+    background-color: #2c2c2c !important;
+    border: 1px solid #444 !important;
+    color: #fff !important;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+/* Paginación (Botones Siguiente/Anterior) */
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+    color: #fff !important;
+    background: transparent !important;
+    border: 1px solid transparent !important;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+    color: #fff !important;
+    background: #444 !important;
+    border: 1px solid #444 !important;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.current,
+.dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+    background: #E60023 !important; /* Rojo para la página actual */
+    border-color: #E60023 !important;
+    color: #fff !important;
+}
+
+/* --- ESTILOS PARA EL MODAL OSCURO --- */
+.modern-modal-content {
+    background-color: #1e1e1e; /* Fondo oscuro */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.7);
+}
+
+.modern-modal-content .modal-header,
+.modern-modal-content .modal-footer {
+    border-color: rgba(255, 255, 255, 0.1); /* Líneas separadoras sutiles */
+}
+
+/* --- ALERTAS MODERNAS (NOTIFICACIONES) --- */
+
+.modern-alert {
+    background-color: #1e1e1e !important; /* Fondo oscuro */
+    color: #ffffff !important;
+    border: none !important;
+    border-radius: 12px !important;
+    padding: 1rem 1.5rem !important;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5) !important; /* Sombra flotante */
+    position: relative;
+    overflow: hidden;
+}
+
+/* Línea de color a la izquierda para identificar el estado */
+.modern-alert::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 6px;
+}
+
+/* Estilos para Éxito (Success) */
+.modern-alert.alert-success::before {
+    background-color: #2ecc71; /* Verde esmeralda brillante */
+}
+.modern-alert.alert-success .alert-icon-box {
+    color: #2ecc71;
+}
+
+/* Estilos para Error/Peligro (Danger) */
+.modern-alert.alert-danger::before {
+    background-color: #E60023; /* Rojo Coca-Cola */
+}
+.modern-alert.alert-danger .alert-icon-box {
+    color: #E60023;
+}
+
+/* Icono grande y brillante */
+.alert-icon-box {
+    font-size: 1.8rem;
+    display: flex;
+    align-items: center;
+}
+
+.alert-heading {
+    font-size: 1rem;
+    margin-bottom: 2px !important;
+}
