@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title if title else "Gestión de Productos y Ventas" }}</title>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css', v=5) }}">
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg sticky-top mb-5 custom-navbar">
+    <div class="container">
+        <a class="navbar-brand d-flex align-items-center" href="{{ url_for('index', seccion='dashboard') }}">
+            <img src="{{ url_for('static', filename='img/arca.png') }}" alt="Arca" class="logo me-3">
+            <div class="d-flex flex-column">
+                <span class="fw-bold h5 mb-0 text-white">Arca Continental</span>
+                <small style="font-size: 0.75rem;" class="text-secondary">Gestión de Productos y Ventas</small>
+            </div>
+        </a>
+        
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <div class="collapse navbar-collapse" id="navbarContent">
+            <ul class="nav me-auto mb-2 mb-lg-0" id="mainNav">
+                
+                <li class="nav-item">
+                    <a class="nav-link text-white fw-bold aligned-nav-link" href="{{ url_for('home') }}">
+                        Menú Principal
+                    </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="{{ url_for('index', seccion='dashboard') }}">Panel</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="{{ url_for('index', seccion='ventas') }}">Ventas</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="{{ url_for('index', seccion='stock') }}">Gestión Stock</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="{{ url_for('index', seccion='historial') }}">Historial</a>
+                </li>
+            </ul>
+
+            <a href="{{ url_for('logout') }}" class="btn btn-primary btn-sm">Cerrar Sesión</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    {% block content %}{% endblock %}
+</div>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script src="{{ url_for('static', filename='js/main.js', v=5) }}"></script>
+
+{% block scripts %}{% endblock %}
+
+</body>
+</html>

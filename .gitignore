@@ -1,0 +1,18 @@
+# --- Seguridad (CRÍTICO) ---
+.env
+.env.local
+
+# --- Base de Datos (SQLite) ---
+*.db
+*.sqlite3
+/instance
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+*$py.class
+
+# --- Entornos Virtuales ---
+venv/
+env/
+.venv/

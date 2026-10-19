@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1 class="text-center text-white mb-4 fw-bold">
+    Menú Principal
+</h1>
+
+<p class="text-center text-secondary mb-5">
+    Selecciona un módulo para continuar
+</p>
+
+<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+
+    <div class="col">
+        <a href="{{ url_for('index', seccion='dashboard') }}" class="card h-100 bg-dark text-white shadow-lg menu-card">
+            <div class="card-body d-flex flex-column align-items-center justify-content-center text-center">
+                <img src="{{ url_for('static', filename='img/panel.png') }}" 
+                     alt="Panel" style="width: 80px" class="mb-3">
+                <h4 class="fw-bold">Panel de Control</h4>
+                <p class="text-secondary mt-2">Resumen general del sistema</p>
+            </div>
+        </a>
+    </div>
+
+    <div class="col">
+        <a href="{{ url_for('index', seccion='ventas') }}" class="card h-100 bg-dark text-white shadow-lg menu-card">
+            <div class="card-body d-flex flex-column align-items-center justify-content-center text-center">
+                <img src="{{ url_for('static', filename='img/venta.png') }}" 
+                     alt="Ventas" style="width: 80px" class="mb-3">
+                <h4 class="fw-bold">Nueva Venta</h4>
+                <p class="text-secondary mt-2">Registrar ventas rápidamente</p>
+            </div>
+        </a>
+    </div>
+
+    <div class="col">
+        <a href="{{ url_for('index', seccion='stock') }}" class="card h-100 bg-dark text-white shadow-lg menu-card">
+            <div class="card-body d-flex flex-column align-items-center justify-content-center text-center">
+                <img src="{{ url_for('static', filename='img/stock.png') }}" 
+                     alt="Stock" style="width: 80px" class="mb-3">
+                <h4 class="fw-bold">Gestión de Stock</h4>
+                <p class="text-secondary mt-2">Agregar, editar y organizar productos</p>
+            </div>
+        </a>
+    </div>
+
+    <div class="col">
+        <a href="{{ url_for('index', seccion='historial') }}" class="card h-100 bg-dark text-white shadow-lg menu-card">
+            <div class="card-body d-flex flex-column align-items-center justify-content-center text-center">
+                <img src="{{ url_for('static', filename='img/historial.png') }}" 
+                     alt="Historial" style="width: 80px" class="mb-3">
+                <h4 class="fw-bold">Historial de Ventas</h4>
+                <p class="text-secondary mt-2">Consulta todas las ventas realizadas</p>
+            </div>
+        </a>
+    </div>
+
+</div>
+
+<style>
+    body {
+        background: #0d0d0d !important;
+    }
+
+    .menu-card {
+        border-radius: 15px;
+        transition: 0.25s;
+        border: 1px solid #333;
+        text-decoration: none; /* Asegura que no tenga subrayado */
+    }
+
+    .menu-card:hover {
+        transform: translateY(-5px);
+        border-color: #e50914;
+        box-shadow: 0 0 20px rgba(255, 0, 0, 0.4);
+        color: white; /* Mantiene el texto blanco al hacer hover */
+    }
+</style>
+
+{% endblock %}

@@ -1,0 +1,479 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    {% if seccion == 'dashboard' %}
+    <section id="panel">
+        <h2 class="mb-4">Panel de Control</h2>
+
+        <div class="row g-4 mb-5">
+            <div class="col-md-3">
+                <div class="card metric-card-dark bg-dark text-white p-4 text-center border-start border-primary border-5">
+                    <h5 class="card-title text-primary fw-bold">Stock Total</h5>
+                    <p class="card-text fs-2 fw-bold">{{ total_productos_stock }}</p>
+                </div>
+            </div>
+            
+            <div class="col-md-3">
+                <div class="card metric-card-dark bg-dark text-white p-4 text-center border-start border-success border-5">
+                    <h5 class="card-title text-success fw-bold">Ingresos Totales</h5>
+                    <p class="card-text fs-2 fw-bold">${{ "%.2f"|format(ingresos_totales) }}</p>
+                </div>
+            </div>
+            
+            <div class="col-md-3">
+                <div class="card metric-card-dark bg-dark text-white p-4 text-center border-start border-info border-5">
+                    <h5 class="card-title text-info fw-bold">Ventas Hoy</h5>
+                    <p class="card-text fs-2 fw-bold">{{ ventas_hoy }}</p>
+                </div>
+            </div>
+            
+            <div class="col-md-3">
+                <div class="card metric-card-dark bg-dark text-white p-4 text-center border-start border-danger border-5">
+                    <h5 class="card-title text-danger fw-bold">Ventas Semana</h5>
+                    <p class="card-text fs-2 fw-bold">{{ ventas_semanales }}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-5">
+            <div class="col-lg-7 mb-4 mb-lg-0">
+                <div class="card dark-graph-card">
+                    <h3>Ingresos de los Últimos 7 Días</h3>
+                    <div style="position: relative; height: 300px; width: 100%;">
+                        <canvas id="graficoVentasSemana"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-5">
+                <div class="card top5-card h-100"> 
+                    <div class="card-header top5-header">
+                        <img src="{{ url_for('static', filename='img/top5.png') }}" alt="Top 5 Icon" class="top5-logo">
+                        <h2 class="mb-0 text-white fw-bold">PRODUCTOS MÁS VENDIDOS</h2>
+                    </div>
+                    <div class="card-body p-4">
+                        {% for producto in productos_mas_vendidos %}
+                        <div class="top5-item">
+                            <div class="rank-container">
+                                <span class="rank-number">{{ loop.index }}</span>
+                                <img src="{{ url_for('static', filename='img/botella.png') }}" alt="Botella" class="bottle-icon">
+                            </div>
+                            <div class="product-info flex-grow-1 mx-3">
+                                <div class="product-name text-white">{{ producto.nombre }}</div>
+                            </div>
+                            <div class="sales-quantity text-end">
+                                <span class="fw-bold text-white">{{ producto.total_vendido }}</span>
+                                <small class="d-block text-secondary">unidades</small>
+                            </div>
+                        </div>
+                        <div class="top5-progress-wrapper">
+                            <div class="top5-progress-bar" style="width: 90%;"></div> 
+                        </div>
+                        {% else %}
+                            <p class="text-secondary text-center p-3">No hay ventas registradas aún.</p>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div> 
+    </section>
+    {% endif %}
+    
+    {% if seccion == 'ventas' %}
+    <section id="ventas">
+        <div class="container-fluid"> 
+            <div class="row justify-content-center">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        {% with messages = get_flashed_messages(with_categories=true) %}
+                        {% if messages %}
+                            {% for category, message in messages %}
+                            <div class="alert modern-alert alert-{{ category }} d-flex align-items-center fade show mb-4" role="alert">
+                                <div class="alert-icon-box me-3">
+                                    {% if category == 'success' %}
+                                        <i class="bi bi-check-circle-fill"></i>
+                                    {% else %}
+                                        <i class="bi bi-exclamation-triangle-fill"></i>
+                                    {% endif %}
+                                </div>
+                                <div>
+                                    <h5 class="alert-heading m-0 fw-bold">{{ '¡Éxito!' if category == 'success' else 'Atención' }}</h5>
+                                    <small>{{ message }}</small>
+                                </div>
+                                <button type="button" class="btn-close btn-close-white ms-auto" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                            {% endfor %}
+                        {% endif %}
+                        {% endwith %}
+                    </div>
+                </div>    
+                <div class="col-lg-8"> 
+                    <div class="card modern-card p-5">
+                        <h2 class="section-title text-center mb-4">
+                            <i class="bi bi-cart-plus-fill me-2"></i>Nueva Venta
+                        </h2>
+                        
+                        <form id="form-nueva-venta">
+                            <div class="row g-3 mb-4">
+                                <div class="col-md-12">
+                                    <div class="form-floating">
+                                        <input name="nombre_cliente" id="nombre_cliente" class="form-control modern-input" placeholder="Nombre del Cliente" required>
+                                        <label for="nombre_cliente">Nombre del Cliente</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-floating">
+                                        <input name="dni_cliente" id="dni_cliente" class="form-control modern-input" placeholder="DNI" required>
+                                        <label for="dni_cliente">DNI / CUIT</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-floating">
+                                        <input name="email_cliente" id="email_cliente" type="email" class="form-control modern-input" placeholder="Email" required>
+                                        <label for="email_cliente">Correo Electrónico</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <hr class="border-secondary my-4">
+                            
+                            <h4 class="mb-3 text-light"><i class="bi bi-box-seam me-2"></i>Selección de Productos</h4>
+                            <div class="input-group mb-3">
+                                <select id="select-producto" class="form-select modern-select">
+                                    <option value="" disabled selected>Busca un producto...</option>
+                                    {% for p in productos %}
+                                        <option value="{{ p.id }}" data-precio="{{ p.precio }}" data-stock="{{ p.stock }}">
+                                            {{ p.nombre }} (${{ "%.2f"|format(p.precio) }}) - Stock: {{ p.stock }}
+                                        </option>
+                                    {% endfor %}
+                                </select>
+                                <button class="btn btn-danger btn-add-modern" type="button" id="btn-agregar-item">
+                                    <i class="bi bi-plus-lg me-2"></i> Agregar
+                                </button>
+                            </div>
+                            
+                            <div class="card bg-dark border-secondary mb-4">
+                                <div class="card-header border-secondary text-white-50">Resumen del Pedido</div>
+                                <div id="lista-productos-venta" class="list-group list-group-flush">
+                                </div>
+                            </div>
+
+                            <button type="button" id="btn-registrar-venta" class="btn btn-success btn-lg w-100 modern-submit-btn">
+                                Confirmar y Registrar Venta
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    {% endif %}
+
+    {% if seccion == 'stock' %}
+    <section id="stock">
+        <div class="container-fluid">
+            
+            <div class="row justify-content-center mb-5">
+                <div class="col-lg-8">
+                    <div class="card modern-card p-5">
+                        <h2 class="section-title text-center mb-4">
+                            <i class="bi bi-box-seam-fill me-2"></i>Agregar Nuevo Producto
+                        </h2>
+                        
+                        <form action="{{ url_for('agregar_producto') }}" method="post" class="row g-3">
+                            <div class="col-md-12">
+                                <div class="form-floating">
+                                    <input name="nombre" id="new_nombre" class="form-control modern-input" placeholder="Nombre" required>
+                                    <label for="new_nombre">Nombre del Producto</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input name="precio" type="number" step="0.01" id="new_precio" class="form-control modern-input" placeholder="Precio" required>
+                                    <label for="new_precio">Precio ($)</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input name="stock" type="number" id="new_stock" class="form-control modern-input" placeholder="Stock" required>
+                                    <label for="new_stock">Stock Inicial</label>
+                                </div>
+                            </div>
+                            <div class="col-12 mt-4">
+                                <button class="btn btn-success w-100 modern-submit-btn">
+                                    <i class="bi bi-plus-circle me-2"></i>Guardar Producto
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div> 
+            
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <div class="card modern-card p-4">
+                        <h2 class="section-title mb-4">Inventario Actual</h2>
+                        
+                        {% with messages = get_flashed_messages(with_categories=true) %}
+                        {% if messages %}
+                            {% for category, message in messages %}
+                                <div class="alert alert-{{ category }}">{{ message }}</div>
+                            {% endfor %}
+                        {% endif %}
+                        {% endwith %}
+
+                        <div class="table-responsive">
+                            <table id="tabla-inventario" class="table table-dark table-hover mt-3 custom-dark-table">
+                                <thead>
+                                    <tr>
+                                        <th>Nombre</th>
+                                        <th>Precio</th>
+                                        <th>Stock</th>
+                                        <th class="text-center">Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for p in productos %}
+                                    <tr>
+                                        <td class="align-middle">{{ p.nombre }}</td>
+                                        <td class="align-middle text-success fw-bold">${{ "%.2f"|format(p.precio) }}</td>
+                                        <td class="align-middle">
+                                            <span class="badge {{ 'bg-danger' if p.stock < 5 else 'bg-primary' }} rounded-pill">
+                                                {{ p.stock }}
+                                            </span>
+                                        </td>
+                                        <td class="text-center align-middle">
+                                            <button class="btn btn-warning btn-sm btn-action me-2 btn-editar-producto"
+                                                    data-id="{{ p.id }}"
+                                                    data-nombre="{{ p.nombre }}"
+                                                    data-precio="{{ p.precio }}"
+                                                    data-stock="{{ p.stock }}"
+                                                    data-bs-toggle="modal" data-bs-target="#editModal">
+                                                <i class="bi bi-pencil-fill"></i>
+                                            </button>
+                                            <a href="{{ url_for('eliminar_producto', id=p.id) }}" class="btn btn-danger btn-sm btn-action" onclick="return confirm('¿Seguro que deseas eliminar este producto?')">
+                                                <i class="bi bi-trash-fill"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content modern-modal-content">
+                        <div class="modal-header border-secondary">
+                            <h5 class="modal-title text-white" id="editModalLabel">Editar Producto</h5>
+                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <form id="form-editar-producto" method="post">
+                            <div class="modal-body">
+                                <div class="mb-3">
+                                    <label for="edit-nombre" class="form-label text-white-50">Nombre</label>
+                                    <input type="text" class="form-control modern-input" id="edit-nombre" name="nombre" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="edit-precio" class="form-label text-white-50">Precio</label>
+                                    <input type="number" step="0.01" class="form-control modern-input" id="edit-precio" name="precio" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="edit-stock" class="form-label text-white-50">Stock</label>
+                                    <input type="number" class="form-control modern-input" id="edit-stock" name="stock" required>
+                                </div>
+                            </div>
+                            <div class="modal-footer border-secondary">
+                                <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Cancelar</button>
+                                <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </section>
+    {% endif %}
+            
+    {% if seccion == 'historial' %}
+    <section id="historial">
+        <div class="container-fluid">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    
+                    <div class="card modern-card p-4">
+                        <h2 class="section-title mb-4">
+                            <i class="bi bi-clock-history me-2"></i>Historial de Ventas
+                        </h2>
+                        
+                        <div class="card bg-dark text-white p-4 mb-4" style="border: 1px solid rgba(255, 255, 255, 0.1);">
+                
+                            <form method="POST" action="{{ url_for('historial') }}" class="row g-3 align-items-end">
+
+                                <div class="col-md-6">
+                                    <label for="dni_cliente" class="form-label text-white-50">Buscar Venta por DNI</label>
+                                    <input type="text" class="form-control modern-input" id="dni_cliente_historial" name="dni_cliente"
+                                           placeholder="Ingresa el DNI del cliente" value="{{ busqueda if busqueda }}" required>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <label class="form-label d-block">&nbsp;</label> 
+                                    <button type="submit" class="btn btn-primary modern-submit-btn">
+                                        <i class="bi bi-search me-2"></i>Buscar
+                                    </button>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <label class="form-label d-block">&nbsp;</label>
+                                    <a href="{{ url_for('historial') }}" class="btn btn-secondary modern-submit-btn">
+                                        <i class="bi bi-x-circle me-2"></i>Ver Todo
+                                    </a>
+                                </div>
+                            </form>
+                        </div>
+                        
+                        <div class="table-responsive">
+                            <table id="tabla-ventas" class="table table-dark table-hover mt-3 custom-dark-table">
+                                <thead>
+                                    <tr>
+                                        <th>ID Venta</th>
+                                        <th>Cliente</th>
+                                        <th>Fecha</th>
+                                        <th>Total</th>
+                                        <th class="text-center">Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for v in ventas %}
+                                    <tr>
+                                        <td class="align-middle text-secondary">#{{ v.id }}</td>
+                                        <td class="align-middle fw-bold">{{ v.cliente.nombre }}</td>
+                                        <td class="align-middle">
+                                            <span class="badge bg-dark border border-secondary text-light">
+                                                {{ v.fecha.strftime("%d/%m/%Y %H:%M") }}
+                                            </span>
+                                        </td>
+                                        <td class="align-middle text-success fw-bold fs-5">
+                                            ${{ "%.2f"|format(v.total) }}
+                                        </td>
+                                        <td class="text-center align-middle">
+                                            <button class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#saleModal-{{ v.id }}">
+                                                <i class="bi bi-eye-fill me-1"></i> Ver Detalles
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% for v in ventas %}
+        <div class="modal fade" id="saleModal-{{ v.id }}" tabindex="-1" aria-labelledby="saleModalLabel-{{ v.id }}" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content modern-modal-content">
+                    <div class="modal-header border-secondary">
+                        <h5 class="modal-title" id="saleModalLabel-{{ v.id }}">Detalles de Venta #{{ v.id }}</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        
+                        <div class="invoice-container bg-white text-dark p-4 rounded">
+                            <div class="invoice-header d-flex justify-content-between align-items-center mb-4">
+                                <img src="{{ url_for('static', filename='img/arca.png') }}" alt="Logo Arca Continental" class="logo" style="height: 50px;">
+                                <div class="text-end">
+                                    <h1 class="h3">FACTURA</h1>
+                                    <p class="mb-0"><strong>N°:</strong> {{ v.id }}</p>
+                                    <p><strong>Fecha:</strong> {{ v.fecha.strftime("%d/%m/%Y") }}</p>
+                                </div>
+                            </div>
+
+                            <div class="invoice-details row mb-4">
+                                <div class="col-6">
+                                    <h4>Arca Continental</h4>
+                                    <p class="mb-0">Calle Maria de Quiroga, Ciudad de La Rioja</p>
+                                    <p class="mb-0">RFC: http://www.arcacontal.com</p>
+                                    <p>Tel: 03804-901110</p>
+                                </div>
+                                <div class="col-6 text-end">
+                                    <h4>Facturado a:</h4>
+                                    <p class="mb-0"><strong>{{ v.cliente.nombre }}</strong></p>
+                                    <p class="mb-0">DNI: {{ v.cliente.dni }}</p>
+                                    <p>Email: {{ v.cliente.email }}</p>
+                                </div>
+                            </div>
+                            
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Producto</th>
+                                        <th>Cantidad</th>
+                                        <th class="text-end">Precio Unitario</th>
+                                        <th class="text-end">Subtotal</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for item in v.items %}
+                                    <tr>
+                                        <td>{{ item.producto.nombre }}</td>
+                                        <td>{{ item.cantidad }}</td>
+                                        <td class="text-end">${{ "%.2f"|format(item.precio_unitario) }}</td>
+                                        <td class="text-end">${{ "%.2f"|format(item.cantidad * item.precio_unitario) }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                            
+                            <div class="row justify-content-end">
+                                <div class="col-4">
+                                    <table class="table table-sm table-borderless">
+                                        <tbody>
+                                            <tr>
+                                                <td>Subtotal:</td>
+                                                <td class="text-end">${{ "%.2f"|format(v.total) }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>IVA (16%):</td>
+                                                <td class="text-end">${{ "%.2f"|format(v.total * 0.16) }}</td>
+                                            </tr>
+                                            <tr class="border-top">
+                                                <td class="fw-bold">Total:</td>
+                                                <td class="fw-bold text-end">${{ "%.2f"|format(v.total * 1.16) }}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            
+                            <div class="text-center mt-4">
+                                <p>Gracias por tu compra. ¡Esperamos verte pronto!</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer border-secondary">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn btn-primary" onclick="imprimirFactura('saleModal-{{ v.id }}')">Imprimir Factura</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </section>
+    {% endif %}
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // Variable necesaria para el gráfico del dashboard
+    const ingresosSemana = {{ ingresos_semanales | tojson | safe if ingresos_semanales else '[]' }}; 
+</script>
+{% endblock %}
